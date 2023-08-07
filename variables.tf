@@ -47,6 +47,7 @@ variable "permissions_boundary" {
 variable "role_description" {
   type        = string
   description = "The description of the IAM role that is visible in the IAM role manager"
+  default     = ""
 }
 
 variable "policy_name" {
