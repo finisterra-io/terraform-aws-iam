@@ -17,7 +17,7 @@ variable "principals" {
 variable "policy_documents" {
   type        = list(string)
   description = "List of JSON IAM policy documents"
-  default     = []
+  default     = string
 }
 
 variable "policy_document_count" {

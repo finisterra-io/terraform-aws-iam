@@ -46,7 +46,7 @@
 
 data "aws_iam_policy_document" "default" {
   count                     = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  override_policy_documents = var.policy_documents
+  override_policy_documents = [var.policy_documents]
 }
 
 resource "aws_iam_policy" "default" {
