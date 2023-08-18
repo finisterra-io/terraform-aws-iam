@@ -41,22 +41,28 @@ resource "aws_iam_role" "default" {
   max_session_duration = var.max_session_duration
   permissions_boundary = var.permissions_boundary
   path                 = var.path
-  tags                 = var.role_tags
+  tags                 = var.tags_enabled ? module.this.tags : null
 }
 
-data "aws_iam_policy_document" "default" {
-  count                     = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  override_policy_documents = [var.policy_documents]
+resource "aws_iam_instance_profile" "default" {
+  count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
+  name  = module.this.id
+  role  = join("", aws_iam_role.default.*.name)
 }
 
-resource "aws_iam_policy" "default" {
-  count       = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  name        = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
-  description = var.policy_description
-  policy      = join("", data.aws_iam_policy_document.default.*.json)
-  path        = var.path
-  tags        = var.tags_enabled ? module.this.tags : null
-}
+# data "aws_iam_policy_document" "default" {
+#   count                     = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
+#   override_policy_documents = [var.policy_documents]
+# }
+
+# resource "aws_iam_policy" "default" {
+#   count       = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
+#   name        = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
+#   description = var.policy_description
+#   policy      = join("", data.aws_iam_policy_document.default.*.json)
+#   path        = var.path
+#   tags        = var.tags_enabled ? module.this.tags : null
+# }
 
 # resource "aws_iam_role_policy_attachment" "default" {
 #   count      = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
@@ -70,8 +76,4 @@ resource "aws_iam_policy" "default" {
 #   policy_arn = each.key
 # }
 
-# resource "aws_iam_instance_profile" "default" {
-#   count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
-#   name  = module.this.id
-#   role  = join("", aws_iam_role.default.*.name)
-# }
+

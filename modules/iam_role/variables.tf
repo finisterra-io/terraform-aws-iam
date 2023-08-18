@@ -108,9 +108,8 @@ variable "assume_role_policy" {
   default     = ""
 }
 
-variable "role_tags" {
-  type        = map(string)
-  description = "role tags"
-  default     = {}
+variable "role_name_prefix" {
+  type        = string
+  description = "Creates a unique role name beginning with the specified prefix. Conflicts with role_name."
+  default     = ""
 }
-
