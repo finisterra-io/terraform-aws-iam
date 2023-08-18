@@ -113,3 +113,9 @@ variable "role_name_prefix" {
   description = "Creates a unique role name beginning with the specified prefix. Conflicts with role_name."
   default     = ""
 }
+
+variable "inline_policy" {
+  type        = string
+  description = "IAM policy document (same as policy_documents but in JSON format)"
+  default     = ""
+}

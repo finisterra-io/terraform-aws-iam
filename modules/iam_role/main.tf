@@ -41,7 +41,9 @@ resource "aws_iam_role" "default" {
   max_session_duration = var.max_session_duration
   permissions_boundary = var.permissions_boundary
   path                 = var.path
+  inline_policy        = var.inline_policy
   tags                 = var.tags_enabled ? module.this.tags : null
+
 }
 
 resource "aws_iam_instance_profile" "default" {
