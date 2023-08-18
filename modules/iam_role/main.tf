@@ -41,8 +41,14 @@ resource "aws_iam_role" "default" {
   max_session_duration = var.max_session_duration
   permissions_boundary = var.permissions_boundary
   path                 = var.path
-  inline_policy        = var.inline_policy
-  tags                 = var.tags_enabled ? var.tags : null
+  dynamic "inline_policy" {
+    for_each = var.inline_policies
+    content {
+      name   = inline_policy.value.name
+      policy = inline_policy.value.policy
+    }
+  }
+  tags = var.tags_enabled ? var.tags : null
 
 }
 

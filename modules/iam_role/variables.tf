@@ -120,10 +120,10 @@ variable "role_name_prefix" {
   default     = ""
 }
 
-variable "inline_policy" {
-  type        = string
+variable "inline_policies" {
+  type        = list(any)
   description = "IAM policy document (same as policy_documents but in JSON format)"
-  default     = ""
+  default     = []
 }
 
 variable "tags" {
