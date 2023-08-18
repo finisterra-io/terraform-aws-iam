@@ -59,7 +59,6 @@ variable "role_description" {
 variable "policy_name" {
   type        = string
   description = "The name of the IAM policy that is visible in the IAM policy manager"
-  default     = null
 }
 
 variable "policy_description" {
