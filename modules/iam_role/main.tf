@@ -33,16 +33,16 @@
 #   context         = module.this.context
 # }
 
-# resource "aws_iam_role" "default" {
-#   count                = module.this.enabled ? 1 : 0
-#   name                 = var.use_fullname ? module.role_name.id : module.this.name
-#   assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated[*].json)
-#   description          = var.role_description
-#   max_session_duration = var.max_session_duration
-#   permissions_boundary = var.permissions_boundary
-#   path                 = var.path
-#   tags                 = var.tags_enabled ? module.this.tags : null
-# }
+resource "aws_iam_role" "default" {
+  count                = module.this.enabled ? 1 : 0
+  name                 = var.role_name
+  assume_role_policy   = var.assume_role_policy
+  description          = var.role_description
+  max_session_duration = var.max_session_duration
+  permissions_boundary = var.permissions_boundary
+  path                 = var.path
+  tags                 = var.role_tags
+}
 
 data "aws_iam_policy_document" "default" {
   count                     = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
