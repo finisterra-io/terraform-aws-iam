@@ -45,27 +45,27 @@
 # }
 
 data "aws_iam_policy_document" "default" {
-  count                     = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
+  count                     = var.enabled && var.policy_document_count > 0 ? 1 : 0
   override_policy_documents = [var.policy_documents]
 }
 
 resource "aws_iam_policy" "default" {
-  count       = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  name        = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
+  count       = var.enabled && var.policy_document_count > 0 ? 1 : 0
+  name        = var.policy_name != "" && var.policy_name != null ? var.policy_name : var.id
   description = var.policy_description
   policy      = join("", data.aws_iam_policy_document.default.*.json)
   path        = var.path
-  tags        = var.tags_enabled ? module.this.tags : null
+  tags        = var.tags_enabled ? var.tags : null
 }
 
 # resource "aws_iam_role_policy_attachment" "default" {
-#   count      = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
+#   count      = var.enabled && var.policy_document_count > 0 ? 1 : 0
 #   role       = join("", aws_iam_role.default.*.name)
 #   policy_arn = join("", aws_iam_policy.default.*.arn)
 # }
 
 # resource "aws_iam_role_policy_attachment" "managed" {
-#   for_each   = module.this.enabled ? var.managed_policy_arns : []
+#   for_each   = var.enabled ? var.managed_policy_arns : []
 #   role       = join("", aws_iam_role.default.*.name)
 #   policy_arn = each.key
 # }
