@@ -1,3 +1,9 @@
+variable "enabled" {
+  type        = bool
+  description = "Set to false to prevent the module from creating any resources"
+  default     = true
+}
+
 variable "use_fullname" {
   type        = bool
   default     = true

@@ -34,7 +34,7 @@
 # }
 
 resource "aws_iam_role" "default" {
-  count                = module.this.enabled ? 1 : 0
+  count                = var.enabled ? 1 : 0
   name                 = var.role_name
   assume_role_policy   = var.assume_role_policy
   description          = var.role_description
@@ -42,12 +42,12 @@ resource "aws_iam_role" "default" {
   permissions_boundary = var.permissions_boundary
   path                 = var.path
   inline_policy        = var.inline_policy
-  tags                 = var.tags_enabled ? module.this.tags : null
+  tags                 = var.tags_enabled ? var.tags : null
 
 }
 
 resource "aws_iam_instance_profile" "default" {
-  count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
+  count = var.enabled && var.instance_profile_enabled ? 1 : 0
   name  = module.this.id
   role  = join("", aws_iam_role.default.*.name)
 }
