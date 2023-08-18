@@ -101,3 +101,9 @@ variable "tags_enabled" {
   description = "Enable/disable tags on IAM roles and policies"
   default     = true
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
+  default     = {}
+}

@@ -125,3 +125,9 @@ variable "inline_policy" {
   description = "IAM policy document (same as policy_documents but in JSON format)"
   default     = ""
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
+  default     = {}
+}
