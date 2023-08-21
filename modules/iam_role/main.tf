@@ -30,10 +30,14 @@ resource "aws_iam_instance_profile" "default" {
 #   policy_arn = join("", aws_iam_policy.default.*.arn)
 # }
 
-resource "aws_iam_role_policy_attachment" "managed" {
-  for_each   = var.enabled ? var.managed_policy_arns : []
-  role       = join("", aws_iam_role.default.*.name)
-  policy_arn = each.key
+locals {
+  policy_name_to_arn_map = {
+    for arn in var.managed_policy_arns : element(split("/", arn), 1) => arn
+  }
 }
 
-
+resource "aws_iam_role_policy_attachment" "managed" {
+  for_each   = var.enabled ? local.policy_name_to_arn_map : {}
+  role       = join("", aws_iam_role.default.*.name)
+  policy_arn = each.value
+}
