@@ -32,9 +32,10 @@ resource "aws_iam_instance_profile" "default" {
 
 locals {
   policy_name_to_arn_map = {
-    for arn in var.managed_policy_arns : element(split("/", arn), 1) => arn
+    for arn in var.managed_policy_arns : reverse(split("/", arn))[0] => arn
   }
 }
+
 
 resource "aws_iam_role_policy_attachment" "managed" {
   for_each   = var.enabled ? local.policy_name_to_arn_map : {}
