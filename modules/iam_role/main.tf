@@ -32,7 +32,7 @@ resource "aws_iam_instance_profile" "default" {
 
 locals {
   policy_name_to_arn_map = {
-    for arn in var.managed_policy_arns : reverse(split("/", arn))[0] => arn
+    for arn in var.managed_policy_arns : "${var.role_name}_${reverse(split("/", arn))[0]}" => arn
   }
 }
 
