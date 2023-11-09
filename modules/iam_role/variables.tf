@@ -137,3 +137,9 @@ variable "instance_profile_name" {
   description = "The name of the instance profile to attach to the role"
   default     = ""
 }
+
+variable "instance_profile_tags" {
+  type        = map(string)
+  description = "Additional tags for the instance profile"
+  default     = {}
+}

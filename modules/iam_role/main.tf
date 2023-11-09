@@ -21,6 +21,7 @@ resource "aws_iam_instance_profile" "default" {
   count = var.enabled && var.instance_profile_enabled ? 1 : 0
   name  = var.instance_profile_name
   role  = join("", aws_iam_role.default.*.name)
+  tags  = var.instance_profile_tags
 }
 
 
