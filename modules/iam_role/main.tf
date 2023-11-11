@@ -18,8 +18,8 @@ resource "aws_iam_role" "default" {
 }
 
 resource "aws_iam_instance_profile" "default" {
-  for_each = var.instance_profiles
-  name     = each.value.name
+  for_each = var.enabled ? { for role in aws_iam_role.default : role.name => role } : {}
+  name     = each.key
   role     = join("", aws_iam_role.default.*.name)
   tags     = each.value.tags
 }
