@@ -19,7 +19,7 @@ resource "aws_iam_role" "default" {
 
 resource "aws_iam_instance_profile" "default" {
   for_each = var.instance_profiles
-  name     = each.key
+  name     = each.value.name
   role     = join("", aws_iam_role.default.*.name)
   tags     = each.value.tags
 }
