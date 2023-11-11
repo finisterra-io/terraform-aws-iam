@@ -143,3 +143,9 @@ variable "instance_profile_tags" {
   description = "Additional tags for the instance profile"
   default     = {}
 }
+
+variable "instance_profiles" {
+  type        = map(any)
+  description = "List of instance profiles to create and attach to the role"
+  default     = []
+}
