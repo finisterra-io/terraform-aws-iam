@@ -147,5 +147,5 @@ variable "instance_profile_tags" {
 variable "instance_profiles" {
   type        = map(any)
   description = "List of instance profiles to create and attach to the role"
-  default     = []
+  default     = {}
 }
