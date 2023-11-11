@@ -106,3 +106,9 @@ variable "tags" {
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
   default     = {}
 }
+
+variable "policy" {
+  type        = string
+  description = "IAM policy document (JSON)"
+  default     = ""
+}
