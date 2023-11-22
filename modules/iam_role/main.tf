@@ -21,6 +21,7 @@ resource "aws_iam_instance_profile" "default" {
   for_each = var.enabled ? { for role in var.instance_profiles : role.name => role } : {}
   name     = each.key
   role     = join("", aws_iam_role.default.*.name)
+  path     = try(each.value.path, null)
   tags     = each.value.tags
 }
 
