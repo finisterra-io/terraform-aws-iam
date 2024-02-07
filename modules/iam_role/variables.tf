@@ -4,24 +4,6 @@ variable "enabled" {
   default     = true
 }
 
-variable "principals" {
-  type        = map(list(string))
-  description = "Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
-  default     = {}
-}
-
-variable "policy_documents" {
-  type        = string
-  description = "List of JSON IAM policy documents"
-  default     = ""
-}
-
-variable "policy_document_count" {
-  type        = number
-  description = "Number of policy documents (length of policy_documents list)"
-  default     = 1
-}
-
 variable "managed_policy_arns" {
   type        = map(any)
   description = "List of managed policies to attach to created role"
@@ -44,40 +26,6 @@ variable "role_description" {
   type        = string
   description = "The description of the IAM role that is visible in the IAM role manager"
   default     = ""
-}
-
-variable "policy_name" {
-  type        = string
-  description = "The name of the IAM policy that is visible in the IAM policy manager"
-  default     = null
-}
-
-variable "policy_description" {
-  type        = string
-  default     = ""
-  description = "The description of the IAM policy that is visible in the IAM policy manager"
-}
-
-variable "assume_role_actions" {
-  type        = list(string)
-  default     = ["sts:AssumeRole", "sts:TagSession"]
-  description = "The IAM action to be granted by the AssumeRole policy"
-}
-
-variable "assume_role_conditions" {
-  type = list(object({
-    test     = string
-    variable = string
-    values   = list(string)
-  }))
-  description = "List of conditions for the assume role policy"
-  default     = []
-}
-
-variable "instance_profile_enabled" {
-  type        = bool
-  default     = false
-  description = "Create EC2 Instance Profile for the role"
 }
 
 variable "path" {
@@ -104,12 +52,6 @@ variable "assume_role_policy" {
   default     = ""
 }
 
-variable "role_name_prefix" {
-  type        = string
-  description = "Creates a unique role name beginning with the specified prefix. Conflicts with role_name."
-  default     = ""
-}
-
 variable "inline_policies" {
   type        = list(any)
   description = "IAM policy document (same as policy_documents but in JSON format)"
@@ -119,18 +61,6 @@ variable "inline_policies" {
 variable "tags" {
   type        = map(string)
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
-  default     = {}
-}
-
-variable "instance_profile_name" {
-  type        = string
-  description = "The name of the instance profile to attach to the role"
-  default     = ""
-}
-
-variable "instance_profile_tags" {
-  type        = map(string)
-  description = "Additional tags for the instance profile"
   default     = {}
 }
 
