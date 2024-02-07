@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.1](https://github.com/finisterra-io/terraform-aws-iam/compare/v1.0.0...v1.0.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* versions ([bc86941](https://github.com/finisterra-io/terraform-aws-iam/commit/bc86941d19cfaafb70eb7188e11eb647315dca51))
+
 ## 1.0.0 (2024-02-07)
 
 
