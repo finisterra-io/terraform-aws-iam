@@ -11,4 +11,3 @@ resource "aws_iam_policy" "default" {
   path        = var.path
   tags        = var.tags_enabled ? var.tags : null
 }
-
